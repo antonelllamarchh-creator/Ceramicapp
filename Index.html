@@ -1,0 +1,1649 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CERAMICAPP</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, 
+                #ffd1dc 0%, #ffb6c1 10%, #e6e6fa 20%, #dda0dd 30%, 
+                #b0e0e6 40%, #87ceeb 50%, #f0fff0 60%, #98fb98 70%, 
+                #fff8dc 80%, #f0e68c 90%, #ffe4e1 100%);
+            min-height: 100vh;
+            color: #5d4e37;
+            background-attachment: fixed;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(139, 115, 85, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .header h1 {
+            color: #8b7355;
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(139, 115, 85, 0.1);
+        }
+
+        .main-sections {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .section-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(139, 115, 85, 0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .section-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 50px rgba(139, 115, 85, 0.3);
+        }
+
+        .section-card h2 {
+            color: #8b7355;
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+
+        .section-card p {
+            color: #a0916d;
+            font-size: 1.1rem;
+        }
+
+        .section-card .icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+
+        .screen {
+            display: none;
+        }
+
+        .screen.active {
+            display: block;
+        }
+
+        .login-form, .content-area {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(139, 115, 85, 0.2);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #8b7355;
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e9dcc9;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: #d4a574;
+            box-shadow: 0 0 0 3px rgba(212, 165, 116, 0.1);
+            background: white;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #b8d4f0, #a8c8e8);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(184, 212, 240, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(184, 212, 240, 0.4);
+            background: linear-gradient(135deg, #a8c8e8, #98b8d8);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #d4b8f0, #c4a8e8);
+        }
+
+        .btn-secondary:hover {
+            background: linear-gradient(135deg, #c4a8e8, #b498d8);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #f0b8c4, #e8a8b4);
+        }
+
+        .btn-danger:hover {
+            background: linear-gradient(135deg, #e8a8b4, #d898a4);
+        }
+
+        .back-btn {
+            margin-bottom: 20px;
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            padding: 8px;
+            box-shadow: 0 4px 20px rgba(139, 115, 85, 0.2);
+            flex-wrap: wrap;
+        }
+
+        .tab {
+            padding: 12px 20px;
+            margin: 4px;
+            background: transparent;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 500;
+            color: #8b7355;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        .tab.active {
+            background: linear-gradient(135deg, #b8d4f0, #a8c8e8);
+            color: white;
+            box-shadow: 0 4px 15px rgba(184, 212, 240, 0.4);
+        }
+
+        .tab:hover:not(.active) {
+            background: rgba(184, 212, 240, 0.2);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .student-card {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(139, 115, 85, 0.1);
+            border-left: 4px solid #b8d4f0;
+            margin-bottom: 15px;
+        }
+
+        .student-card h4 {
+            color: #8b7355;
+            margin-bottom: 10px;
+        }
+
+        .student-card p {
+            color: #a0916d;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+
+        .student-card.has-class {
+            border-left-color: #98fb98;
+            background: linear-gradient(135deg, rgba(152, 251, 152, 0.1), rgba(255, 255, 255, 0.95));
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .main-sections {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .header {
+                padding: 20px;
+                margin-bottom: 20px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .section-card {
+                padding: 30px 20px;
+            }
+            
+            .section-card .icon {
+                font-size: 3rem;
+            }
+            
+            .section-card h2 {
+                font-size: 1.5rem;
+            }
+            
+            .login-form, .content-area {
+                padding: 20px;
+            }
+            
+            .tabs {
+                flex-direction: column;
+                gap: 5px;
+            }
+            
+            .tab {
+                padding: 15px 20px;
+                margin: 2px 0;
+                font-size: 1rem;
+                text-align: center;
+            }
+            
+            .btn {
+                padding: 15px 20px;
+                font-size: 1rem;
+                min-height: 48px;
+                touch-action: manipulation;
+            }
+            
+            .form-group input, .form-group select, .form-group textarea {
+                padding: 15px 16px;
+                font-size: 1rem;
+                min-height: 48px;
+            }
+            
+            .student-card {
+                padding: 15px;
+                margin-bottom: 10px;
+            }
+            
+            .student-card h4 {
+                font-size: 1.1rem;
+                margin-bottom: 8px;
+            }
+            
+            .student-card p {
+                font-size: 0.9rem;
+                margin-bottom: 4px;
+            }
+            
+            .student-card .btn {
+                margin: 5px 5px 0 0;
+                padding: 10px 15px;
+                font-size: 0.9rem;
+            }
+            
+            #gastos > div {
+                grid-template-columns: 1fr !important;
+                gap: 20px !important;
+            }
+            
+            #estadisticas > div {
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 15px !important;
+            }
+            
+            .back-btn {
+                margin-bottom: 15px;
+            }
+            
+            /* Mejorar el espaciado en móvil */
+            .content-area > div:first-child {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            
+            .content-area > div:first-child h2 {
+                order: -1;
+                margin-bottom: 10px;
+            }
+            
+            /* Hacer los botones más grandes para touch */
+            button {
+                cursor: pointer;
+                -webkit-tap-highlight-color: rgba(0,0,0,0.1);
+            }
+            
+            /* Mejorar legibilidad en móvil */
+            body {
+                font-size: 16px;
+                line-height: 1.5;
+            }
+            
+            /* Evitar zoom en inputs en iOS */
+            input, select, textarea {
+                font-size: 16px !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>CERAMICAPP</h1>
+            <p style="color: #8b7355; font-size: 0.8rem; margin-top: 10px; opacity: 0.7;">Sistema de gestión para talleres de cerámica</p>
+        </div>
+
+        <!-- Pantalla principal -->
+        <div id="mainScreen" class="screen active">
+            <div class="main-sections">
+                <div class="section-card" onclick="goToAlumnaLogin()">
+                    <div class="icon">👩‍🎓</div>
+                    <h2>Alumnas</h2>
+                    <p>Accede a tu horario y clases</p>
+                </div>
+                <div class="section-card" onclick="goToProfePanel()">
+                    <div class="icon">👩‍🏫</div>
+                    <h2>Profes</h2>
+                    <p>Panel de administración</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Login de alumnas -->
+        <div id="alumnaLoginScreen" class="screen">
+            <div class="login-form">
+                <button class="btn back-btn" onclick="goToMain()">← Volver</button>
+                
+                <div id="loginForm">
+                    <h2 style="color: #8b7355; margin-bottom: 20px; text-align: center;">Acceso Alumnas</h2>
+                    <div class="form-group">
+                        <label for="loginPhone">Número de Celular:</label>
+                        <input type="tel" id="loginPhone" placeholder="Ej: 1123456789">
+                    </div>
+                    <div class="form-group">
+                        <label for="loginPassword">Contraseña:</label>
+                        <input type="password" id="loginPassword">
+                    </div>
+                    <button class="btn" onclick="doLogin()" style="width: 100%; margin-bottom: 15px;">Ingresar</button>
+                    <button class="btn btn-secondary" onclick="showRegister()" style="width: 100%;">¿Primera vez? Registrarse</button>
+                </div>
+
+                <div id="registerForm" style="display: none;">
+                    <h2 style="color: #8b7355; margin-bottom: 20px; text-align: center;">Registro de Nueva Alumna</h2>
+                    <div class="form-group">
+                        <label for="regName">Nombre:</label>
+                        <input type="text" id="regName" placeholder="Tu nombre">
+                    </div>
+                    <div class="form-group">
+                        <label for="regPhone">Número de Celular:</label>
+                        <input type="tel" id="regPhone" placeholder="Ej: 1123456789">
+                    </div>
+                    <div class="form-group">
+                        <label for="regPassword">Crear Contraseña:</label>
+                        <input type="password" id="regPassword" placeholder="Mínimo 6 caracteres">
+                    </div>
+                    <button class="btn" onclick="doRegister()" style="width: 100%; margin-bottom: 15px;">Registrarse</button>
+                    <button class="btn btn-secondary" onclick="showLogin()" style="width: 100%;">Ya tengo cuenta</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Panel de alumna -->
+        <div id="alumnaPanelScreen" class="screen">
+            <div class="content-area">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <button class="btn back-btn" onclick="logoutAlumna()">← Cerrar Sesión</button>
+                    <h2 id="welcomeMessage" style="color: #8b7355; margin: 0;">¡Bienvenida!</h2>
+                </div>
+                
+                <div class="tabs">
+                    <button class="tab active" onclick="showAlumnaTab('mis-clases')">📅 Mis Clases</button>
+                    <button class="tab" onclick="showAlumnaTab('reservar')">➕ Reservar</button>
+                    <button class="tab" onclick="showAlumnaTab('perfil')">👤 Mi Perfil</button>
+                </div>
+
+                <div id="mis-clases" class="tab-content active">
+                    <h3 style="color: #8b7355; margin-bottom: 15px;">Mis Clases Reservadas</h3>
+                    <div id="alumnaClasses">
+                        <div class="student-card" style="text-align: center; color: #a0916d;">
+                            <p>No tienes clases reservadas aún.</p>
+                            <p>Ve a la pestaña "Reservar" para inscribirte a una clase.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="reservar" class="tab-content">
+                    <h3 style="color: #8b7355; margin-bottom: 15px;">Reservar Nueva Clase</h3>
+                    <div class="student-card" style="text-align: center; color: #a0916d;">
+                        <p>No hay clases disponibles para reservar en este momento.</p>
+                        <p>Las profes deben crear clases primero desde el Panel Profes.</p>
+                    </div>
+                </div>
+
+                <div id="perfil" class="tab-content">
+                    <h3 style="color: #8b7355; margin-bottom: 15px;">Mi Perfil</h3>
+                    <div id="alumnaProfile">
+                        <div class="student-card">
+                            <h4>Información Personal</h4>
+                            <p><strong>Nombre:</strong> <span id="profileName">María González</span></p>
+                            <p><strong>Teléfono:</strong> <span id="profilePhone">1123456789</span></p>
+                            <p><strong>Nivel:</strong> Intermedio</p>
+                            <p><strong>Clases tomadas:</strong> 8</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Login de profes -->
+        <div id="profeLoginScreen" class="screen">
+            <div class="login-form">
+                <button class="btn back-btn" onclick="goToMain()">← Volver</button>
+                
+                <div id="profeLoginForm">
+                    <h2 style="color: #8b7355; margin-bottom: 20px; text-align: center;">Acceso Profes</h2>
+                    <div class="form-group">
+                        <label for="profeLoginPhone">Número de Celular:</label>
+                        <input type="tel" id="profeLoginPhone" placeholder="Ej: 1123456789">
+                    </div>
+                    <div class="form-group">
+                        <label for="profeLoginPassword">Contraseña:</label>
+                        <input type="password" id="profeLoginPassword">
+                    </div>
+                    <button class="btn" onclick="doProfeLogin()" style="width: 100%; margin-bottom: 15px;">Ingresar</button>
+                    <button class="btn btn-secondary" onclick="showProfeRegister()" style="width: 100%;">¿Primera vez? Registrarse</button>
+                </div>
+
+                <div id="profeRegisterForm" style="display: none;">
+                    <h2 style="color: #8b7355; margin-bottom: 20px; text-align: center;">Registro de Nueva Profe</h2>
+                    <div class="form-group">
+                        <label for="profeRegName">Nombre:</label>
+                        <input type="text" id="profeRegName" placeholder="Tu nombre">
+                    </div>
+                    <div class="form-group">
+                        <label for="profeRegPhone">Número de Celular:</label>
+                        <input type="tel" id="profeRegPhone" placeholder="Ej: 1123456789">
+                    </div>
+                    <div class="form-group">
+                        <label for="profeRegPassword">Crear Contraseña:</label>
+                        <input type="password" id="profeRegPassword" placeholder="Mínimo 6 caracteres">
+                    </div>
+                    <button class="btn" onclick="doProfeRegister()" style="width: 100%; margin-bottom: 15px;">Registrarse</button>
+                    <button class="btn btn-secondary" onclick="showProfeLogin()" style="width: 100%;">Ya tengo cuenta</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Panel de profes -->
+        <div id="profePanelScreen" class="screen">
+            <div class="content-area">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <button class="btn back-btn" onclick="logoutProfe()">← Cerrar Sesión</button>
+                    <h2 id="profeWelcomeMessage" style="color: #8b7355; margin: 0;">Panel de Profes</h2>
+                </div>
+                
+                <div class="tabs">
+                    <button class="tab active" onclick="showProfeTab('clases')">📚 Clases</button>
+                    <button class="tab" onclick="showProfeTab('alumnas')">👥 Alumnas</button>
+                    <button class="tab" onclick="showProfeTab('gastos')">💰 Gastos</button>
+                    <button class="tab" onclick="showProfeTab('estadisticas')">📊 Estadísticas</button>
+                </div>
+
+                <div id="clases" class="tab-content active">
+                    <h2 style="color: #8b7355; margin-bottom: 20px;">Gestión de Clases</h2>
+                    
+                    <button class="btn" onclick="addClass()" style="margin-bottom: 20px;">+ Agregar Nueva Clase</button>
+                    
+                    <div id="classesList">
+                        <!-- Las clases se cargarán aquí dinámicamente -->
+                    </div>
+                </div>
+
+                <div id="alumnas" class="tab-content">
+                    <h2 style="color: #8b7355; margin-bottom: 20px;">Gestión de Alumnas</h2>
+                    
+                    <button class="btn" onclick="addStudent()" style="margin-bottom: 20px;">+ Agregar Alumna</button>
+                    
+                    <div id="studentsList">
+                        <!-- Las alumnas se cargarán aquí dinámicamente -->
+                    </div>
+                </div>
+
+                <div id="gastos" class="tab-content">
+                    <h2 style="color: #8b7355; margin-bottom: 20px;">Control de Gastos</h2>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 30px;">
+                        <!-- Gastos -->
+                        <div>
+                            <h3 style="color: #8b7355; margin-bottom: 15px;">Gastos Mensuales</h3>
+                            <button class="btn" onclick="addExpense()" style="margin-bottom: 15px;">+ Agregar Gasto</button>
+                            
+                            <div id="expensesList">
+                                <div class="student-card" style="text-align: center; color: #a0916d;">
+                                    <p>No hay gastos registrados aún.</p>
+                                    <p>Usa el botón "+ Agregar Gasto" para comenzar.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="student-card" style="background: #ffe6e6; border-left-color: #f0b8c4;">
+                                <h4 style="color: #d4574a;">Total Gastos: $<span id="totalExpenses">0</span></h4>
+                            </div>
+                        </div>
+                        
+                        <!-- Ingresos -->
+                        <div>
+                            <h3 style="color: #8b7355; margin-bottom: 15px;">Ingresos Mensuales</h3>
+                            <button class="btn" onclick="addIncome()" style="margin-bottom: 15px;">+ Agregar Ingreso</button>
+                            
+                            <div id="incomesList">
+                                <div class="student-card" style="text-align: center; color: #a0916d;">
+                                    <p>No hay ingresos registrados aún.</p>
+                                    <p>Usa el botón "+ Agregar Ingreso" para comenzar.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="student-card" style="background: #e6ffe6; border-left-color: #98fb98;">
+                                <h4 style="color: #4a7c59;">Total Ingresos: $<span id="totalIncome">0</span></h4>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Balance General -->
+                    <div class="student-card" style="background: #f0f8ff; border-left-color: #b8d4f0; text-align: center;">
+                        <h3 style="color: #8b7355; margin-bottom: 10px;">Balance General</h3>
+                        <h2 id="totalBalance" style="color: #8b7355; font-size: 2.5rem;">$0</h2>
+                        <p style="color: #8b7355;">Balance del mes</p>
+                    </div>
+                </div>
+
+                <div id="estadisticas" class="tab-content">
+                    <h2 style="color: #8b7355; margin-bottom: 20px;">Estadísticas</h2>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+                        <div class="student-card" style="text-align: center;">
+                            <h4 style="font-size: 2rem; color: #d4a574;">0</h4>
+                            <p>Total de Clases</p>
+                        </div>
+                        <div class="student-card" style="text-align: center;">
+                            <h4 style="font-size: 2rem; color: #d4a574;">0</h4>
+                            <p>Total de Alumnas</p>
+                        </div>
+                        <div class="student-card" style="text-align: center;">
+                            <h4 style="font-size: 2rem; color: #d4a574;">-</h4>
+                            <p>Horario Más Popular</p>
+                        </div>
+                        <div class="student-card" style="text-align: center;">
+                            <h4 style="font-size: 2rem; color: #d4a574;">$0</h4>
+                            <p>Ingresos Mensuales</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div style="text-align: center; padding: 10px; font-size: 0.6rem; color: #000000;">
+        creado por Ceramikarma
+    </div>
+
+    <script>
+        // Variables globales
+        let currentAlumna = null;
+        let currentProfe = null;
+        let students = JSON.parse(localStorage.getItem('ceramicapp_students')) || [];
+        let profes = JSON.parse(localStorage.getItem('ceramicapp_profes')) || [];
+        let classes = JSON.parse(localStorage.getItem('ceramicapp_classes')) || [];
+        let expenses = JSON.parse(localStorage.getItem('ceramicapp_expenses')) || [];
+        let incomes = JSON.parse(localStorage.getItem('ceramicapp_incomes')) || [];
+
+        // Funciones de navegación
+        function goToMain() {
+            hideAllScreens();
+            document.getElementById('mainScreen').classList.add('active');
+        }
+
+        function goToAlumnaLogin() {
+            hideAllScreens();
+            document.getElementById('alumnaLoginScreen').classList.add('active');
+            showLogin();
+        }
+
+        function goToProfePanel() {
+            hideAllScreens();
+            document.getElementById('profeLoginScreen').classList.add('active');
+            showProfeLogin();
+        }
+
+        function hideAllScreens() {
+            document.querySelectorAll('.screen').forEach(screen => {
+                screen.classList.remove('active');
+            });
+        }
+
+        // Funciones de login/registro alumnas
+        function showLogin() {
+            document.getElementById('loginForm').style.display = 'block';
+            document.getElementById('registerForm').style.display = 'none';
+        }
+
+        function showRegister() {
+            document.getElementById('loginForm').style.display = 'none';
+            document.getElementById('registerForm').style.display = 'block';
+        }
+
+        function doLogin() {
+            const phone = document.getElementById('loginPhone').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            if (!phone || !password) {
+                alert('Por favor completa todos los campos');
+                return;
+            }
+            
+            const alumna = students.find(s => s.phone === phone && s.password === password);
+            
+            if (alumna) {
+                currentAlumna = alumna;
+                hideAllScreens();
+                document.getElementById('alumnaPanelScreen').classList.add('active');
+                document.getElementById('welcomeMessage').textContent = `¡Bienvenida ${alumna.name}!`;
+                document.getElementById('profileName').textContent = alumna.name;
+                document.getElementById('profilePhone').textContent = alumna.phone;
+                
+                // Cargar datos de la alumna
+                loadMyClasses();
+                loadAvailableClasses();
+                
+                // Limpiar campos
+                document.getElementById('loginPhone').value = '';
+                document.getElementById('loginPassword').value = '';
+            } else {
+                alert('Número de teléfono o contraseña incorrectos');
+            }
+        }
+
+        function doRegister() {
+            const name = document.getElementById('regName').value;
+            const phone = document.getElementById('regPhone').value;
+            const password = document.getElementById('regPassword').value;
+            
+            if (!name || !phone || !password) {
+                alert('Por favor completa todos los campos');
+                return;
+            }
+            
+            if (password.length < 6) {
+                alert('La contraseña debe tener al menos 6 caracteres');
+                return;
+            }
+            
+            if (students.find(s => s.phone === phone)) {
+                alert('Ya existe una alumna registrada con este número de teléfono');
+                return;
+            }
+            
+            const newStudent = {
+                id: Date.now(),
+                name: name,
+                phone: phone,
+                password: password,
+                level: 'principiante',
+                classes: 0
+            };
+            
+            students.push(newStudent);
+            saveStudents();
+            alert('¡Registro exitoso! Ya puedes iniciar sesión.');
+            
+            // Limpiar campos y mostrar login
+            document.getElementById('regName').value = '';
+            document.getElementById('regPhone').value = '';
+            document.getElementById('regPassword').value = '';
+            showLogin();
+        }
+
+        function logoutAlumna() {
+            currentAlumna = null;
+            goToMain();
+        }
+
+        // Funciones de login/registro profes
+        function showProfeLogin() {
+            document.getElementById('profeLoginForm').style.display = 'block';
+            document.getElementById('profeRegisterForm').style.display = 'none';
+        }
+
+        function showProfeRegister() {
+            document.getElementById('profeLoginForm').style.display = 'none';
+            document.getElementById('profeRegisterForm').style.display = 'block';
+        }
+
+        function doProfeLogin() {
+            const phone = document.getElementById('profeLoginPhone').value;
+            const password = document.getElementById('profeLoginPassword').value;
+            
+            if (!phone || !password) {
+                alert('Por favor completa todos los campos');
+                return;
+            }
+            
+            const profe = profes.find(p => p.phone === phone && p.password === password);
+            
+            if (profe) {
+                currentProfe = profe;
+                hideAllScreens();
+                document.getElementById('profePanelScreen').classList.add('active');
+                document.getElementById('profeWelcomeMessage').textContent = `¡Hola ${profe.name}!`;
+                
+                // Limpiar campos
+                document.getElementById('profeLoginPhone').value = '';
+                document.getElementById('profeLoginPassword').value = '';
+                
+                // Mostrar primera pestaña activa
+                showProfeTab('clases');
+            } else {
+                alert('Número de teléfono o contraseña incorrectos');
+            }
+        }
+
+        function doProfeRegister() {
+            const name = document.getElementById('profeRegName').value;
+            const phone = document.getElementById('profeRegPhone').value;
+            const password = document.getElementById('profeRegPassword').value;
+            
+            if (!name || !phone || !password) {
+                alert('Por favor completa todos los campos');
+                return;
+            }
+            
+            if (password.length < 6) {
+                alert('La contraseña debe tener al menos 6 caracteres');
+                return;
+            }
+            
+            if (profes.find(p => p.phone === phone)) {
+                alert('Ya existe una profe registrada con este número de teléfono');
+                return;
+            }
+            
+            const newProfe = {
+                id: Date.now(),
+                name: name,
+                phone: phone,
+                password: password
+            };
+            
+            profes.push(newProfe);
+            saveProfes();
+            alert('¡Registro exitoso! Ya puedes iniciar sesión.');
+            
+            // Limpiar campos y mostrar login
+            document.getElementById('profeRegName').value = '';
+            document.getElementById('profeRegPhone').value = '';
+            document.getElementById('profeRegPassword').value = '';
+            showProfeLogin();
+        }
+
+        function logoutProfe() {
+            currentProfe = null;
+            goToMain();
+        }
+
+        // Funciones de pestañas
+        function showAlumnaTab(tabName) {
+            // Remover active de todas las pestañas y contenidos
+            document.querySelectorAll('#alumnaPanelScreen .tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('#alumnaPanelScreen .tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Activar pestaña clickeada
+            event.target.classList.add('active');
+            document.getElementById(tabName).classList.add('active');
+            
+            // Cargar datos específicos según la pestaña
+            if (tabName === 'mis-clases') {
+                loadMyClasses();
+            } else if (tabName === 'reservar') {
+                loadAvailableClasses();
+            }
+        }
+
+        function showProfeTab(tabName) {
+            // Remover active de todas las pestañas y contenidos
+            document.querySelectorAll('#profePanelScreen .tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('#profePanelScreen .tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Activar pestaña clickeada
+            if (event && event.target) {
+                event.target.classList.add('active');
+            } else {
+                // Si no hay event (llamada programática), buscar la pestaña por el nombre
+                const tabs = document.querySelectorAll('#profePanelScreen .tab');
+                tabs.forEach(tab => {
+                    if (tab.onclick && tab.onclick.toString().includes(tabName)) {
+                        tab.classList.add('active');
+                    }
+                });
+            }
+            document.getElementById(tabName).classList.add('active');
+        }
+
+        // Funciones de reserva y gestión
+        function reserveClass(classId) {
+            if (!currentAlumna) {
+                alert('Error: Debes estar logueada para reservar');
+                return;
+            }
+            
+            const classData = classes.find(c => c.id === classId);
+            if (!classData) {
+                alert('Error: Clase no encontrada');
+                return;
+            }
+            
+            const spotsLeft = classData.maxStudents - classData.enrolledStudents.length;
+            if (spotsLeft <= 0) {
+                alert('Lo siento, esta clase ya está llena');
+                return;
+            }
+            
+            const isAlreadyEnrolled = classData.enrolledStudents.some(s => s.id === currentAlumna.id);
+            if (isAlreadyEnrolled) {
+                alert('Ya estás inscrita en esta clase');
+                return;
+            }
+            
+            const confirmMessage = classData.isRecurring 
+                ? `¿Confirmas la reserva?\n\nClase: ${classData.type} (Semanal)\nDía: Todos los ${classData.dayOfWeek}\nHora: ${classData.time}`
+                : `¿Confirmas la reserva?\n\nClase: ${classData.type}\nFecha: ${classData.dayOfWeek} ${classData.specificDate}\nHora: ${classData.time}`;
+            
+            if (confirm(confirmMessage)) {
+                // Agregar alumna a la clase
+                classData.enrolledStudents.push({
+                    id: currentAlumna.id,
+                    name: currentAlumna.name,
+                    phone: currentAlumna.phone
+                });
+                
+                // Actualizar contador de clases de la alumna
+                currentAlumna.classes++;
+                
+                // Guardar cambios
+                saveClasses();
+                saveStudents();
+                
+                alert(`¡Reserva confirmada!\n\n${classData.isRecurring ? 'Clase semanal' : 'Clase'}: ${classData.type}\n${classData.isRecurring ? 'Día: Todos los ' + classData.dayOfWeek : 'Fecha: ' + classData.dayOfWeek + ' ' + classData.specificDate}\nHora: ${classData.time}\n\n¡Te esperamos!`);
+                
+                // Recargar las vistas
+                loadMyClasses();
+                loadAvailableClasses();
+            }
+        }
+
+        // Función para cargar mis clases (alumna)
+        function loadMyClasses() {
+            const alumnaClassesDiv = document.getElementById('alumnaClasses');
+            
+            if (!currentAlumna) return;
+            
+            // Buscar clases donde está inscrita la alumna
+            const myClasses = classes.filter(classData => 
+                classData.enrolledStudents.some(s => s.id === currentAlumna.id)
+            );
+            
+            if (myClasses.length === 0) {
+                alumnaClassesDiv.innerHTML = `
+                    <div class="student-card" style="text-align: center; color: #a0916d;">
+                        <p>No tienes clases reservadas aún.</p>
+                        <p>Ve a la pestaña "Reservar" para inscribirte a una clase.</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            alumnaClassesDiv.innerHTML = '';
+            myClasses.forEach(classData => {
+                const classCard = document.createElement('div');
+                classCard.className = 'student-card';
+                
+                if (classData.isRecurring) {
+                    classCard.style.borderLeft = '4px solid #98fb98';
+                    classCard.innerHTML = `
+                        <h4>🔄 ${classData.type} (Semanal)</h4>
+                        <p><strong>Día:</strong> Todos los ${classData.dayOfWeek}</p>
+                        <p><strong>Hora:</strong> ${classData.time}</p>
+                        <p><strong>Estado:</strong> <span style="color: #4a7c59; font-weight: 600;">Confirmada - Se repite semanalmente</span></p>
+                        <button class="btn btn-danger" onclick="cancelMyClass(${classData.id})" style="margin-top: 10px;">Cancelar Inscripción</button>
+                    `;
+                } else {
+                    classCard.innerHTML = `
+                        <h4>${classData.type}</h4>
+                        <p><strong>Fecha:</strong> ${classData.dayOfWeek} ${classData.specificDate}, 2024</p>
+                        <p><strong>Hora:</strong> ${classData.time}</p>
+                        <p><strong>Estado:</strong> <span style="color: #8b7355; font-weight: 600;">Confirmada</span></p>
+                        <button class="btn btn-danger" onclick="cancelMyClass(${classData.id})" style="margin-top: 10px;">Cancelar Reserva</button>
+                    `;
+                }
+                
+                alumnaClassesDiv.appendChild(classCard);
+            });
+        }
+
+        function cancelMyClass(classId) {
+            const classData = classes.find(c => c.id === classId);
+            if (!classData) return;
+            
+            const confirmMessage = classData.isRecurring 
+                ? `¿Estás segura de cancelar tu inscripción a la clase semanal de ${classData.type} (${classData.dayOfWeek})?`
+                : `¿Estás segura de cancelar la clase de ${classData.type} del ${classData.dayOfWeek} ${classData.specificDate}?`;
+            
+            if (confirm(confirmMessage)) {
+                // Remover alumna de la clase
+                classData.enrolledStudents = classData.enrolledStudents.filter(s => s.id !== currentAlumna.id);
+                
+                // Actualizar contador de clases
+                if (currentAlumna.classes > 0) {
+                    currentAlumna.classes--;
+                }
+                
+                // Guardar cambios
+                saveClasses();
+                saveStudents();
+                
+                alert(`${classData.isRecurring ? 'Inscripción a clase semanal' : 'Clase'} de ${classData.type} cancelada exitosamente.`);
+                
+                // Recargar vistas
+                loadMyClasses();
+                loadAvailableClasses();
+            }
+        }
+
+        function addClass() {
+            const classType = prompt('Tipo de clase (Construcción Manual/Torno/Workshops):');
+            if (!classType) return;
+            
+            const dayOfWeek = prompt('Día de la semana (ej: Lunes, Martes, Miércoles):');
+            if (!dayOfWeek) return;
+            
+            const time = prompt('Hora (ej: 15:00):');
+            if (!time) return;
+            
+            const maxStudents = prompt('Máximo de alumnas:', '6');
+            if (!maxStudents) return;
+            
+            const repeat = confirm('¿Quieres que esta clase se repita todas las semanas?\n\n✅ Sí = Clase semanal recurrente\n❌ No = Solo una clase');
+            
+            const newClassData = {
+                id: Date.now(),
+                type: classType,
+                dayOfWeek: dayOfWeek,
+                time: time,
+                maxStudents: parseInt(maxStudents),
+                isRecurring: repeat,
+                enrolledStudents: [],
+                profeId: currentProfe.id
+            };
+            
+            if (repeat) {
+                alert(`Nueva clase semanal creada:\n\n📅 Tipo: ${classType}\n🗓️ Día: Todos los ${dayOfWeek}\n⏰ Hora: ${time}\n👥 Máximo: ${maxStudents} alumnas\n\n¡Esta clase se repetirá automáticamente cada semana!`);
+                
+            } else {
+                const specificDate = prompt('Fecha específica (ej: 25 de Marzo):');
+                if (!specificDate) return;
+                
+                newClassData.specificDate = specificDate;
+                
+                alert(`Nueva clase única creada:\n\n📅 Tipo: ${classType}\n🗓️ Fecha: ${dayOfWeek} ${specificDate}\n⏰ Hora: ${time}\n👥 Máximo: ${maxStudents} alumnas`);
+            }
+            
+            // Guardar la clase en el array y localStorage
+            classes.push(newClassData);
+            saveClasses();
+            
+            // Recargar la vista de clases
+            loadClasses();
+        }
+
+        function editClass(classType, date) {
+            const newTime = prompt(`Editar hora de la clase de ${classType} del ${date}:`, '15:00');
+            if (newTime) {
+                alert(`Clase de ${classType} del ${date} actualizada a las ${newTime}`);
+            }
+        }
+
+        function editRecurringClass(classType, dayOfWeek, currentTime) {
+            const newTime = prompt(`Editar hora de la clase semanal de ${classType} (${dayOfWeek}):`, currentTime);
+            if (newTime) {
+                alert(`Clase semanal de ${classType} actualizada:\n\n🗓️ Día: Todos los ${dayOfWeek}\n⏰ Nueva hora: ${newTime}\n\n¡El cambio aplicará a todas las clases futuras!`);
+                
+                // Actualizar la hora en la tarjeta
+                const card = event.target.closest('.student-card');
+                const timeElement = card.querySelector('p:nth-child(3)');
+                timeElement.innerHTML = `<strong>Hora:</strong> ${newTime}`;
+            }
+        }
+
+        function cancelRecurringClass(classType, dayOfWeek) {
+            if (confirm(`¿Estás segura de cancelar TODA la serie de clases de ${classType} los ${dayOfWeek}?\n\n⚠️ Esto cancelará todas las clases futuras de esta serie y notificará a todas las alumnas inscritas.`)) {
+                alert(`Serie de clases de ${classType} (${dayOfWeek}) cancelada completamente.\n\n📧 Se ha notificado a todas las alumnas inscritas.\n🗓️ No se programarán más clases de esta serie.`);
+                event.target.closest('.student-card').remove();
+            }
+        }
+
+        function cancelProfeClass(classType, date) {
+            if (confirm(`¿Estás segura de cancelar la clase de ${classType} del ${date}?\n\nEsto notificará a todas las alumnas inscritas.`)) {
+                alert(`Clase de ${classType} del ${date} cancelada. Se ha notificado a las alumnas.`);
+                event.target.closest('.student-card').remove();
+            }
+        }
+
+        // NUEVA FUNCIÓN MEJORADA PARA AGREGAR ALUMNAS
+        function addStudent() {
+            const name = prompt('👤 Nombre completo de la alumna:');
+            if (!name) return;
+            
+            const phone = prompt('📱 Número de teléfono:');
+            if (!phone) return;
+            
+            // Verificar que no exista el teléfono
+            if (students.find(s => s.phone === phone)) {
+                alert('Ya existe una alumna con ese número de teléfono');
+                return;
+            }
+            
+            // Preguntar si quiere asignar clase ahora
+            const assignClass = confirm(`¿Quieres asignar a ${name} a una clase ahora?\n\n✅ Sí = Elegir día y hora directamente\n❌ No = Solo guardar datos`);
+            
+            let assignedClass = null;
+            
+            if (assignClass) {
+                // Mostrar clases disponibles o crear nueva
+                if (classes.length === 0) {
+                    if (confirm('No hay clases creadas. ¿Quieres crear una nueva clase para esta alumna?')) {
+                        assignedClass = createQuickClass();
+                    }
+                } else {
+                    assignedClass = selectClassForStudent(name);
+                }
+            }
+            
+            const newStudent = {
+                id: Date.now(),
+                name: name,
+                phone: phone,
+                password: phone.slice(-6), // Últimos 6 dígitos como contraseña temporal
+                level: 'principiante',
+                classes: assignedClass ? 1 : 0,
+                assignedDay: assignedClass ? assignedClass.dayOfWeek : null,
+                assignedTime: assignedClass ? assignedClass.time : null,
+                assignedClassType: assignedClass ? assignedClass.type : null
+            };
+            
+            students.push(newStudent);
+            
+            // Si se asignó a una clase, agregarla también ahí
+            if (assignedClass) {
+                assignedClass.enrolledStudents.push({
+                    id: newStudent.id,
+                    name: newStudent.name,
+                    phone: newStudent.phone
+                });
+                saveClasses();
+            }
+            
+            // ✨ ORDENAR ALFABÉTICAMENTE ✨
+            students.sort((a, b) => a.name.localeCompare(b.name));
+            saveStudents();
+            
+            let message = `✅ Alumna agregada exitosamente:\n\n👤 Nombre: ${name}\n📱 Teléfono: ${phone}\n🔑 Contraseña temporal: ${newStudent.password}`;
+            
+            if (assignedClass) {
+                message += `\n\n📅 Clase asignada:\n🎨 Tipo: ${assignedClass.type}\n📆 Día: ${assignedClass.dayOfWeek}\n⏰ Hora: ${assignedClass.time}`;
+            }
+            
+            alert(message);
+            
+            // Recargar la lista completa
+            loadInitialData();
+        }
+
+        // FUNCIÓN PARA CREAR CLASE RÁPIDA
+        function createQuickClass() {
+            const classType = prompt('🎨 Tipo de clase:', 'Construcción Manual');
+            if (!classType) return null;
+            
+            const dayOfWeek = prompt('📅 Día de la semana:', 'Lunes');
+            if (!dayOfWeek) return null;
+            
+            const time = prompt('⏰ Hora:', '15:00');
+            if (!time) return null;
+            
+            const newClass = {
+                id: Date.now(),
+                type: classType,
+                dayOfWeek: dayOfWeek,
+                time: time,
+                maxStudents: 6,
+                isRecurring: true,
+                enrolledStudents: [],
+                profeId: currentProfe ? currentProfe.id : 1
+            };
+            
+            classes.push(newClass);
+            return newClass;
+        }
+
+        // FUNCIÓN PARA SELECCIONAR CLASE EXISTENTE
+        function selectClassForStudent(studentName) {
+            let classOptions = `📋 Selecciona una clase para ${studentName}:\n\n`;
+            classes.forEach((classData, index) => {
+                const spotsLeft = classData.maxStudents - classData.enrolledStudents.length;
+                classOptions += `${index + 1}. ${classData.type} - ${classData.dayOfWeek} ${classData.time}`;
+                classOptions += spotsLeft > 0 ? ` (${spotsLeft} lugares) ✅\n` : ' (LLENA) ❌\n';
+            });
+            
+            classOptions += `\n${classes.length + 1}. ➕ Crear nueva clase\n0. ❌ No asignar clase ahora`;
+            
+            const selection = prompt(classOptions + '\n\nIngresa el número:');
+            if (!selection || selection === '0') return null;
+            
+            const classIndex = parseInt(selection) - 1;
+            
+            if (selection === String(classes.length + 1)) {
+                return createQuickClass();
+            }
+            
+            if (classIndex >= 0 && classIndex < classes.length) {
+                const selectedClass = classes[classIndex];
+                const spotsLeft = selectedClass.maxStudents - selectedClass.enrolledStudents.length;
+                
+                if (spotsLeft <= 0) {
+                    alert('Esta clase está llena. Creando nueva clase...');
+                    return createQuickClass();
+                }
+                
+                return selectedClass;
+            }
+            
+            return null;
+        }
+
+        function editStudent(name, phone) {
+            const newName = prompt('Nuevo nombre:', name);
+            const newPhone = prompt('Nuevo teléfono:', phone);
+            
+            if (newName && newPhone) {
+                alert(`Datos de ${name} actualizados correctamente`);
+            }
+        }
+
+        function deleteStudent(name, phone) {
+            if (confirm(`¿Estás segura de eliminar a ${name}?\n\nEsta acción no se puede deshacer.`)) {
+                alert(`${name} ha sido eliminada del sistema`);
+                event.target.closest('.student-card').remove();
+                
+                // Remover del array
+                students = students.filter(s => s.phone !== phone);
+                saveStudents();
+            }
+        }
+
+        function assignToClass(studentId) {
+            const student = students.find(s => s.id === studentId);
+            if (!student) {
+                alert('Error: Alumna no encontrada');
+                return;
+            }
+            
+            if (classes.length === 0) {
+                alert('No hay clases disponibles. Primero crea una clase.');
+                return;
+            }
+            
+            // Mostrar lista de clases disponibles
+            let classOptions = 'Selecciona una clase para asignar a ' + student.name + ':\n\n';
+            classes.forEach((classData, index) => {
+                const spotsLeft = classData.maxStudents - classData.enrolledStudents.length;
+                const isEnrolled = classData.enrolledStudents.some(s => s.id === studentId);
+                
+                if (classData.isRecurring) {
+                    classOptions += `${index + 1}. ${classData.type} (Semanal) - ${classData.dayOfWeek} ${classData.time}`;
+                } else {
+                    classOptions += `${index + 1}. ${classData.type} - ${classData.dayOfWeek} ${classData.specificDate} ${classData.time}`;
+                }
+                
+                if (isEnrolled) {
+                    classOptions += ' ✅ (YA INSCRITA)\n';
+                } else if (spotsLeft <= 0) {
+                    classOptions += ' ❌ (LLENA)\n';
+                } else {
+                    classOptions += ` (${spotsLeft} lugares)\n`;
+                }
+            });
+            
+            const selection = prompt(classOptions + '\nIngresa el número de la clase:');
+            if (!selection) return;
+            
+            const classIndex = parseInt(selection) - 1;
+            if (classIndex < 0 || classIndex >= classes.length) {
+                alert('Número de clase inválido');
+                return;
+            }
+            
+            const selectedClass = classes[classIndex];
+            const spotsLeft = selectedClass.maxStudents - selectedClass.enrolledStudents.length;
+            const isAlreadyEnrolled = selectedClass.enrolledStudents.some(s => s.id === studentId);
+            
+            if (isAlreadyEnrolled) {
+                if (confirm(`${student.name} ya está inscrita en esta clase.\n\n¿Quieres removerla de la clase?`)) {
+                    // Remover de la clase
+                    selectedClass.enrolledStudents = selectedClass.enrolledStudents.filter(s => s.id !== studentId);
+                    if (student.classes > 0) student.classes--;
+                    
+                    saveClasses();
+                    saveStudents();
+                    
+                    alert(`${student.name} ha sido removida de la clase de ${selectedClass.type}`);
+                    loadInitialData(); // Recargar vista
+                }
+                return;
+            }
+            
+            if (spotsLeft <= 0) {
+                alert('Esta clase ya está llena. No se puede asignar más alumnas.');
+                return;
+            }
+            
+            // Confirmar asignación
+            const confirmMessage = selectedClass.isRecurring 
+                ? `¿Confirmas asignar a ${student.name} a la clase semanal?\n\nClase: ${selectedClass.type}\nDía: Todos los ${selectedClass.dayOfWeek}\nHora: ${selectedClass.time}`
+                : `¿Confirmas asignar a ${student.name} a la clase?\n\nClase: ${selectedClass.type}\nFecha: ${selectedClass.dayOfWeek} ${selectedClass.specificDate}\nHora: ${selectedClass.time}`;
+            
+            if (confirm(confirmMessage)) {
+                // Asignar alumna a la clase
+                selectedClass.enrolledStudents.push({
+                    id: student.id,
+                    name: student.name,
+                    phone: student.phone
+                });
+                
+                // Actualizar contador de clases
+                student.classes++;
+                
+                // Guardar cambios
+                saveClasses();
+                saveStudents();
+                
+                alert(`¡${student.name} asignada exitosamente!\n\nClase: ${selectedClass.type}\n${selectedClass.isRecurring ? 'Día: Todos los ' + selectedClass.dayOfWeek : 'Fecha: ' + selectedClass.dayOfWeek + ' ' + selectedClass.specificDate}\nHora: ${selectedClass.time}`);
+                
+                // Recargar vista
+                loadInitialData();
+            }
+        }
+
+        // Funciones de gastos e ingresos
+        function addExpense() {
+            const name = prompt('Nombre del gasto (ej: Luz, Gas, Alquiler, Insumos):');
+            if (!name) return;
+            
+            const amount = prompt('Monto del gasto (solo números):');
+            if (!amount || isNaN(amount)) {
+                alert('Por favor ingresa un monto válido');
+                return;
+            }
+            
+            const date = prompt('Fecha (ej: 15 de Marzo):', new Date().getDate() + ' de Marzo');
+            if (!date) return;
+            
+            // Elegir emoji según el tipo de gasto
+            let emoji = '💰';
+            if (name.toLowerCase().includes('luz')) emoji = '💡';
+            else if (name.toLowerCase().includes('gas')) emoji = '🔥';
+            else if (name.toLowerCase().includes('alquiler')) emoji = '🏠';
+            else if (name.toLowerCase().includes('insumo')) emoji = '🎨';
+            
+            alert(`Gasto agregado:\n\n${name}: $${amount}\nFecha: ${date}`);
+            
+            // Crear nuevo gasto
+            const newExpense = document.createElement('div');
+            newExpense.className = 'student-card';
+            newExpense.innerHTML = `
+                <h4>${emoji} ${name}</h4>
+                <p><strong>Monto:</strong> $${amount}</p>
+                <p><strong>Fecha:</strong> ${date}</p>
+                <button class="btn btn-danger" onclick="deleteExpense('${name}', ${amount})" style="margin-top: 10px;">Eliminar</button>
+            `;
+            
+            document.getElementById('expensesList').appendChild(newExpense);
+            updateTotals();
+        }
+
+        function addIncome() {
+            const name = prompt('Tipo de ingreso (ej: Clases, Horneadas, Venta de Piezas):');
+            if (!name) return;
+            
+            const amount = prompt('Monto del ingreso (solo números):');
+            if (!amount || isNaN(amount)) {
+                alert('Por favor ingresa un monto válido');
+                return;
+            }
+            
+            const detail = prompt('Detalle (ej: 5 clases x $2000):', 'Detalle del ingreso');
+            if (!detail) return;
+            
+            // Elegir emoji según el tipo de ingreso
+            let emoji = '💰';
+            if (name.toLowerCase().includes('clase')) emoji = '👩‍🎓';
+            else if (name.toLowerCase().includes('horneada')) emoji = '🔥';
+            else if (name.toLowerCase().includes('venta') || name.toLowerCase().includes('pieza')) emoji = '🎨';
+            
+            alert(`Ingreso agregado:\n\n${name}: $${amount}\nDetalle: ${detail}`);
+            
+            // Crear nuevo ingreso
+            const newIncome = document.createElement('div');
+            newIncome.className = 'student-card';
+            newIncome.innerHTML = `
+                <h4>${emoji} ${name}</h4>
+                <p><strong>Monto:</strong> $${amount}</p>
+                <p><strong>Detalle:</strong> ${detail}</p>
+                <button class="btn btn-danger" onclick="deleteIncome('${name}', ${amount})" style="margin-top: 10px;">Eliminar</button>
+            `;
+            
+            document.getElementById('incomesList').appendChild(newIncome);
+            updateTotals();
+        }
+
+        function deleteExpense(name, amount) {
+            if (confirm(`¿Eliminar el gasto de ${name} por $${amount}?`)) {
+                alert(`Gasto de ${name} eliminado`);
+                event.target.closest('.student-card').remove();
+                updateTotals();
+            }
+        }
+
+        function deleteIncome(name, amount) {
+            if (confirm(`¿Eliminar el ingreso de ${name} por $${amount}?`)) {
+                alert(`Ingreso de ${name} eliminado`);
+                event.target.closest('.student-card').remove();
+                updateTotals();
+            }
+        }
+
+        function updateTotals() {
+            // Calcular total de gastos
+            let totalExpenses = 0;
+            document.querySelectorAll('#expensesList .student-card').forEach(card => {
+                const montoText = card.querySelector('p').textContent;
+                const monto = parseInt(montoText.replace(/[^0-9]/g, ''));
+                if (!isNaN(monto)) totalExpenses += monto;
+            });
+            
+            // Calcular total de ingresos
+            let totalIncome = 0;
+            document.querySelectorAll('#incomesList .student-card').forEach(card => {
+                const montoText = card.querySelector('p').textContent;
+                const monto = parseInt(montoText.replace(/[^0-9]/g, ''));
+                if (!isNaN(monto)) totalIncome += monto;
+            });
+            
+            // Actualizar totales en pantalla
+            document.getElementById('totalExpenses').textContent = totalExpenses.toLocaleString();
+            document.getElementById('totalIncome').textContent = totalIncome.toLocaleString();
+            
+            // Calcular balance
+            const balance = totalIncome - totalExpenses;
+            const balanceElement = document.getElementById('totalBalance');
+            balanceElement.textContent = '$' + balance.toLocaleString();
+            
+            // Cambiar color según si es ganancia o pérdida
+            if (balance >= 0) {
+                balanceElement.style.color = '#4a7c59';
+                balanceElement.nextElementSibling.textContent = 'Ganancia del mes';
+            } else {
+                balanceElement.style.color = '#d4574a';
+                balanceElement.nextElementSibling.textContent = 'Pérdida del mes';
+            }
+        }
+
+        // Funciones de almacenamiento
+        function saveStudents() {
+            localStorage.setItem('ceramicapp_students', JSON.stringify(students));
+        }
+
+        function saveProfes() {
+            localStorage.setItem('ceramicapp_profes', JSON.stringify(profes));
+        }
+
+        function saveClasses() {
+            localStorage.setItem('ceramicapp_classes', JSON.stringify(classes));
+        }
+
+        function saveExpenses() {
+            localStorage.setItem('ceramicapp_expenses', JSON.stringify(expenses));
+        }
+
+        function saveIncomes() {
+            localStorage.setItem('ceramicapp_incomes', JSON.stringify(incomes));
+        }
+
+        // Función para cargar clases
+        function loadClasses() {
+            const classesList = document.getElementById('classesList');
+            
+            if (classes.length === 0) {
+                classesList.innerHTML = `
+                    <div class="student-card" style="text-align: center; color: #a0916d;">
+                        <p>No hay clases programadas aún.</p>
+                        <p>Usa el botón "+ Agregar Nueva Clase" para comenzar.</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            classesList.innerHTML = '';
+            classes.forEach(classData => {
+                const classCard = document.createElement('div');
+                classCard.className = 'student-card';
+                
+                if (classData.isRecurring) {
+                    classCard.style.borderLeft = '4px solid #98fb98';
+                    classCard.innerHTML = `
+                        <h4>🔄 ${classData.type} (Semanal)</h4>
+                        <p><strong>Día:</strong> Todos los ${classData.dayOfWeek}</p>
+                        <p><strong>Hora:</strong> ${classData.time}</p>
+                        <p><strong>Máximo:</strong> ${classData.maxStudents} alumnas por clase</p>
+                        <p><strong>Inscritas:</strong> ${classData.enrolledStudents.length}/${classData.maxStudents}</p>
+                        <p><strong>Estado:</strong> <span style="color: #4a7c59; font-weight: 600;">Activa - Se repite semanalmente</span></p>
+                        <div style="margin-top: 10px;">
+                            <button class="btn btn-secondary" onclick="editRecurringClass(${classData.id})">Editar</button>
+                            <button class="btn btn-danger" onclick="cancelRecurringClass(${classData.id})">Cancelar Serie</button>
+                        </div>
+                    `;
+                } else {
+                    classCard.innerHTML = `
+                        <h4>${classData.type}</h4>
+                        <p><strong>Fecha:</strong> ${classData.dayOfWeek} ${classData.specificDate}, 2024</p>
+                        <p><strong>Hora:</strong> ${classData.time}</p>
+                        <p><strong>Inscritas:</strong> ${classData.enrolledStudents.length}/${classData.maxStudents}</p>
+                        <p><strong>Alumnas:</strong> ${classData.enrolledStudents.length > 0 ? classData.enrolledStudents.map(s => s.name).join(', ') : '(Ninguna aún)'}</p>
+                        <div style="margin-top: 10px;">
+                            <button class="btn btn-secondary" onclick="editClass(${classData.id})">Editar</button>
+                            <button class="btn btn-danger" onclick="cancelProfeClass(${classData.id})">Cancelar</button>
+                        </div>
+                    `;
+                }
+                
+                classesList.appendChild(classCard);
+            });
+        }
+
+        // Función para cargar clases disponibles para alumnas
+        function loadAvailableClasses() {
+            const reservarDiv = document.getElementById('reservar');
+            
+            if (classes.length === 0) {
+                reservarDiv.innerHTML = `
+                    <h3 style="color: #8b7355; margin-bottom: 15px;">Reservar Nueva Clase</h3>
+                    <div class="student-card" style="text-align: center; color: #a0916d;">
+                        <p>No hay clases disponibles para reservar en este momento.</p>
+                        <p>Las profes deben crear clases primero desde el Panel Profes.</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            let availableClassesHTML = '<h3 style="color: #8b7355; margin-bottom: 15px;">Reservar Nueva Clase</h3>';
+            
+            classes.forEach(classData => {
+                const spotsLeft = classData.maxStudents - classData.enrolledStudents.length;
+                const isEnrolled = classData.enrolledStudents.some(s => s.id === currentAlumna.id);
+                
+                if (spotsLeft > 0 && !isEnrolled) {
+                    availableClassesHTML += `
+                        <div class="student-card">
+                            <h4>${classData.type} ${classData.isRecurring ? '(Semanal)' : ''}</h4>
+                            <p><strong>${classData.isRecurring ? 'Día:' : 'Fecha:'}</strong> ${classData.isRecurring ? 'Todos los ' + classData.dayOfWeek : classData.dayOfWeek + ' ' + classData.specificDate}</p>
+                            <p><strong>Hora:</strong> ${classData.time}</p>
+                            <p><strong>Lugares disponibles:</strong> ${spotsLeft}/${classData.maxStudents}</p>
+                            <button class="btn" onclick="reserveClass(${classData.id})" style="margin-top: 10px;">Reservar Lugar</button>
+                        </div>
+                    `;
+                }
+            });
+            
+            if (availableClassesHTML === '<h3 style="color: #8b7355; margin-bottom: 15px;">Reservar Nueva Clase</h3>') {
+                availableClassesHTML += `
+                    <div class="student-card" style="text-align: center; color: #a0916d;">
+                        <p>No hay clases disponibles para reservar.</p>
+                        <p>Todas las clases están llenas o ya estás inscrita.</p>
+                    </div>
+                `;
+            }
+            
+            reservarDiv.innerHTML = availableClassesHTML;
+        }
+
+        // Función para cargar datos iniciales
+        function loadInitialData() {
+            // Cargar lista de estudiantes si hay datos
+            const studentsList = document.getElementById('studentsList');
+            if (students.length === 0) {
+                studentsList.innerHTML = `
+                    <div class="student-card" style="text-align: center; color: #a0916d;">
+                        <p>No hay alumnas registradas aún.</p>
+                        <p>Usa el botón "+ Agregar Alumna" para comenzar.</p>
+                    </div>
+                `;
+            } else {
+                studentsList.innerHTML = '';
+                students.forEach(student => {
+                    const studentCard = document.createElement('div');
+                    studentCard.className = 'student-card';
+                    
+                    // Si tiene clase asignada, mostrar con estilo especial
+                    if (student.assignedDay && student.assignedTime) {
+                        studentCard.classList.add('has-class');
+                        studentCard.innerHTML = `
+                            <h4>✅ ${student.name}</h4>
+                            <p><strong>Teléfono:</strong> ${student.phone}</p>
+                            <p><strong>Clase:</strong> ${student.assignedClassType || 'Asignada'}</p>
+                            <p><strong>Día:</strong> ${student.assignedDay} - <strong>Hora:</strong> ${student.assignedTime}</p>
+                            <p><strong>Clases tomadas:</strong> ${student.classes}</p>
+                            <div style="margin-top: 10px;">
+                                <button class="btn" onclick="assignToClass(${student.id})" style="margin-right: 5px;">Cambiar Clase</button>
+                                <button class="btn btn-secondary" onclick="editStudent('${student.name}', '${student.phone}')">Editar</button>
+                                <button class="btn btn-danger" onclick="deleteStudent('${student.name}', '${student.phone}')">Eliminar</button>
+                            </div>
+                        `;
+                    } else {
+                        studentCard.innerHTML = `
+                            <h4>${student.name}</h4>
+                            <p><strong>Teléfono:</strong> ${student.phone}</p>
+                            <p><strong>Nivel:</strong> ${student.level}</p>
+                            <p><strong>Clases tomadas:</strong> ${student.classes}</p>
+                            <p style="color: #d4574a; font-style: italic;">Sin clase asignada</p>
+                            <div style="margin-top: 10px;">
+                                <button class="btn" onclick="assignToClass(${student.id})" style="margin-right: 5px;">Asignar a Clase</button>
+                                <button class="btn btn-secondary" onclick="editStudent('${student.name}', '${student.phone}')">Editar</button>
+                                <button class="btn btn-danger" onclick="deleteStudent('${student.name}', '${student.phone}')">Eliminar</button>
+                            </div>
+                        `;
+                    }
+                    studentsList.appendChild(studentCard);
+                });
+            }
+
+            // Cargar clases
+            loadClasses();
+
+            // Cargar listas de gastos e ingresos (vacías por defecto)
+            const expensesList = document.getElementById('expensesList');
+            expensesList.innerHTML = `
+                <div class="student-card" style="text-align: center; color: #a0916d;">
+                    <p>No hay gastos registrados aún.</p>
+                    <p>Usa el botón "+ Agregar Gasto" para comenzar.</p>
+                </div>
+            `;
+
+            const incomesList = document.getElementById('incomesList');
+            incomesList.innerHTML = `
+                <div class="student-card" style="text-align: center; color: #a0916d;">
+                    <p>No hay ingresos registrados aún.</p>
+                    <p>Usa el botón "+ Agregar Ingreso" para comenzar.</p>
+                </div>
+            `;
+        }
+
+        // Inicializar aplicación
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('CERAMICAPP cargada correctamente');
+            console.log('Alumnas disponibles:', students);
+            console.log('Profes disponibles:', profes);
+            loadInitialData(); // Cargar datos iniciales
+            updateTotals(); // Calcular totales iniciales
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9778502cc1bab567',t:'MTc1NjU5OTExMy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
